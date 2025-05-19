@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "bebasafe",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

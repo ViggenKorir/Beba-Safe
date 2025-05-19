@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items & Goods</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <form action="" method="post">
+        <h1>Goods Details</h1>
+        <label for="item_name">Item Name:</label>
+        <input type="text" placeholder="Name of Item" required><br>
+        <label for="item_description">Description:</label>
+        <textarea name="description" id="item_description" cols="30" rows="10" placeholder="Item Description"></textarea><br>
+        <label for="quality">Quantity:</label>
+        <input type="number" name="quantity" id="item_quantity" placeholder="Quantity" ><br>
+        <label for="weight">Weight:</label>
+        <input type="number" name="weight" id="item_weight"><br>
+        <label for="dimentions">Dimentions:</label>
+        <input type="number" name="width" id="item_width" placeholder="Width">
+        <input type="number" name="Lenth" id="item_length" placeholder="Length"><br>
+        <label for="upload_images">Photos:</label>
+        <input type="file" name="item image" id="item_image" multiple><br>
+    <button type="submit" onclick="onClick()">Submit</button>
+</form>
+</body>
+<script>
+    function onClick(){
+        if(confirm("Are you sure to submit these as the correct details?")) {
+            alert("Details submitted successfully!");
+        }
+    }
+</script>
+</html>
