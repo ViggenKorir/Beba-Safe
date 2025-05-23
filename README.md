@@ -1,7 +1,7 @@
 # Beba-Safe
 Beba Safe is a courier service enabling safe pick-up and delivery of goods and services mainly operating around Nairobi CBD
 
-# Technology Stack:
+# Technologies Used:
 
 Frontend: React for building a dynamic and responsive dashboard.
 Tailwind CSS for styling.
