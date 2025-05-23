@@ -7,7 +7,7 @@ Frontend: React for building a dynamic and responsive dashboard.
 Tailwind CSS for styling.
 
 Backend: Python (Django or Flask) - For building the API that handles authentication, database interactions, and payment processing. 
-&&
+
 Supabase to handle Database
 
 <!-- Database: PostgreSQL or MongoDB are suitable database options. -->
