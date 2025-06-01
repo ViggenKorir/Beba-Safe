@@ -1,6 +1,54 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { supabase } from '../supabaseClient';
 
 const AdminDashboard = () => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchAllOrders = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        // Attempt to fetch orders with related data.
+        // Adjust if your table/column names or relationships differ.
+        // For example, use `couriers!left(name)` if a courier might not be assigned.
+        const { data, error: fetchError } = await supabase
+          .from('orders')
+          .select('*, couriers(name), user_profiles(full_name)') // Assuming user_profiles has full_name
+          .order('created_at', { ascending: false });
+
+        if (fetchError) {
+          // If join fails, try fetching without it for graceful degradation.
+          console.warn("Failed to fetch orders with joins, trying without:", fetchError.message);
+          const { data: basicData, error: basicError } = await supabase
+            .from('orders')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+          if (basicError) {
+            setError(basicError.message);
+            setOrders([]);
+          } else {
+            setOrders(basicData || []);
+            // Optionally, set a different error/warning to indicate partial data
+            setError("Fetched orders, but some related data might be missing.");
+          }
+        } else {
+          setOrders(data || []);
+        }
+      } catch (err) {
+        setError(err.message);
+        setOrders([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllOrders();
+  }, []);
+
   return (
     <div className="min-h-screen flex bg-slate-50 font-['Work Sans','Noto Sans',sans-serif] overflow-x-hidden pt-20">
       {/* Sidebar */}
@@ -83,7 +131,7 @@ const AdminDashboard = () => {
                     "Order ID",
                     "Courier",
                     "User",
-                    "Address",
+                    "Address (Pickup)",
                     "Status",
                     "Actions",
                   ].map((header, index) => (
@@ -97,27 +145,39 @@ const AdminDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  ["#1234", "Jane Doe", "1234 Main St", "In progress"],
-                  ["#5678", "John Smith", "5678 Elm St", "Pending"],
-                  ["#9101", "Alice Johnson", "9101 Pine St", "Completed"],
-                  ["#1121", "Bob Davis", "1121 Oak St", "Canceled"],
-                  ["#3141", "Eve Brown", "3141 Cedar St", "In progress"],
-                  ["#5161", "Charlie Wilson", "5161 Maple St", "Pending"],
-                  ["#7181", "Grace Lee", "7181 Birch St", "Completed"],
-                  ["#9201", "David Garcia", "9201 Ash St", "Canceled"],
-                  ["#1221", "Frank Martinez", "1221 Walnut St", "In progress"],
-                  ["#3241", "Hannah Miller", "3241 Spruce St", "Pending"],
-                ].map(([id, courier, user, status], index) => (
-                  <tr key={index} className="border-t border-[#d0dbe7]">
-                    <td className="px-4 py-2 text-sm font-normal text-[#0e141b]">{id}</td>
-                    <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">{courier}</td>
-                    <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">{user}</td>
-                    <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">{user}</td>
-                    <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">{status}</td>
-                    <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">...</td>
+                {loading ? (
+                  <tr><td colSpan="6" className="text-center py-4">Loading all orders...</td></tr>
+                ) : error && !orders.length ? ( // Only show fatal error if no orders are loaded at all
+                  <tr><td colSpan="6" className="text-center py-4 text-red-500">Error fetching orders: {error}</td></tr>
+                ) : orders.length === 0 ? (
+                  <tr><td colSpan="6" className="text-center py-4">No orders found.</td></tr>
+                ) : (
+                  orders.map((order) => (
+                    <tr key={order.id} className="border-t border-[#d0dbe7]">
+                      <td className="px-4 py-2 text-sm font-normal text-[#0e141b] whitespace-nowrap overflow-hidden text-ellipsis max-w-[100px]" title={order.id}>
+                        {order.id ? order.id.substring(0, 8) + "..." : 'N/A'}
+                      </td>
+                      <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">
+                        {order.couriers ? order.couriers.name : (order.courier_id || 'N/A')}
+                      </td>
+                      <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">
+                        {/* Assuming user_profiles table and it has full_name */}
+                        {order.user_profiles ? order.user_profiles.full_name : (order.user_id ? order.user_id.substring(0,8)+'...' : 'N/A')}
+                      </td>
+                      <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">{order.pickup_location}</td>
+                      <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">{order.status}</td>
+                      <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">...</td>
+                    </tr>
+                  ))
+                )}
+                {/* Display a warning if orders were fetched but joins might have failed */}
+                {error && orders.length > 0 && (
+                  <tr>
+                    <td colSpan="6" className="text-center py-2 text-orange-500 text-xs">
+                      Note: {error}
+                    </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>

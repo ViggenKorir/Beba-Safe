@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../supabaseClient"; // Import supabase client
+import { useUser } from "@clerk/clerk-react"; // Import useUser hook
 
 const NewOrderForm = ({ onClose }) => {
   if (!onClose) {
@@ -8,11 +10,59 @@ const NewOrderForm = ({ onClose }) => {
   }
 
   const navigate = useNavigate();
+  const { user } = useUser(); // Get user from Clerk
 
-  const handleSubmit = (e) => {
+  // State for form fields
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [deliveryLocation, setDeliveryLocation] = useState("");
+  const [itemType, setItemType] = useState("");
+  const [quantity, setQuantity] = useState(1);
+  const [weight, setWeight] = useState("");
+  const [dimensions, setDimensions] = useState("");
+  const [specialInstructions, setSpecialInstructions] = useState("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Order submitted successfully!");
-    navigate("/user-dashboard");
+
+    if (!user) {
+      console.error("User not signed in. Cannot create order.");
+      alert("You must be signed in to create an order.");
+      return;
+    }
+
+    const orderData = {
+      pickup_location: pickupLocation,
+      delivery_location: deliveryLocation,
+      item_type: itemType,
+      quantity: parseInt(quantity, 10),
+      weight_kg: parseFloat(weight),
+      dimensions_cm: dimensions,
+      special_instructions: specialInstructions,
+      user_id: user.id,
+      status: "Pending", // Default status
+    };
+
+    try {
+      const { data, error } = await supabase
+        .from("orders")
+        .insert([orderData])
+        .select();
+
+      if (error) {
+        console.error("Error creating order:", error);
+        alert("Failed to create order: " + error.message);
+        return; // Stay on the form or handle error appropriately
+      }
+
+      if (data) {
+        alert("Order submitted successfully!");
+        navigate("/user-dashboard"); // Navigate on success
+        if (onClose) onClose(); // Close modal if it's a modal form
+      }
+    } catch (error) {
+      console.error("Unexpected error creating order:", error);
+      alert("An unexpected error occurred. Please try again.");
+    }
   };
 
   return (
@@ -24,16 +74,22 @@ const NewOrderForm = ({ onClose }) => {
           <div>
             <label className="block text-sm font-medium text-[#0e141b]">Pickup Location</label>
             <input
+              name="pickupLocation"
               className="form-input w-full rounded-xl border border-[#d0dbe7] p-3"
               placeholder="Enter pickup address"
+              value={pickupLocation}
+              onChange={(e) => setPickupLocation(e.target.value)}
               required
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-[#0e141b]">Delivery Location</label>
             <input
+              name="deliveryLocation"
               className="form-input w-full rounded-xl border border-[#d0dbe7] p-3"
               placeholder="Enter delivery address"
+              value={deliveryLocation}
+              onChange={(e) => setDeliveryLocation(e.target.value)}
               required
             />
           </div>
@@ -41,17 +97,23 @@ const NewOrderForm = ({ onClose }) => {
             <div className="flex-1">
               <label className="block text-sm font-medium text-[#0e141b]">Item Type</label>
               <input
+                name="itemType"
                 className="form-input w-full rounded-xl border border-[#d0dbe7] p-3"
                 placeholder="Item type"
+                value={itemType}
+                onChange={(e) => setItemType(e.target.value)}
                 required
               />
             </div>
             <div className="flex-1">
               <label className="block text-sm font-medium text-[#0e141b]">Quantity</label>
               <input
+                name="quantity"
                 className="form-input w-full rounded-xl border border-[#d0dbe7] p-3"
                 type="number"
                 placeholder="1"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
                 required
               />
             </div>
@@ -60,17 +122,23 @@ const NewOrderForm = ({ onClose }) => {
             <div className="flex-1">
               <label className="block text-sm font-medium text-[#0e141b]">Weight (kg)</label>
               <input
+                name="weight"
                 className="form-input w-full rounded-xl border border-[#d0dbe7] p-3"
                 type="number"
                 placeholder="1"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
                 required
               />
             </div>
             <div className="flex-1">
               <label className="block text-sm font-medium text-[#0e141b]">Dimensions (LxWxH)</label>
               <input
+                name="dimensions"
                 className="form-input w-full rounded-xl border border-[#d0dbe7] p-3"
-                placeholder="1x1x1"
+                placeholder="e.g., 10x5x3"
+                value={dimensions}
+                onChange={(e) => setDimensions(e.target.value)}
                 required
               />
             </div>
@@ -78,9 +146,12 @@ const NewOrderForm = ({ onClose }) => {
           <div>
             <label className="block text-sm font-medium text-[#0e141b]">Special Instructions</label>
             <textarea
+              name="specialInstructions"
               className="form-textarea w-full rounded-xl border border-[#d0dbe7] p-3"
               rows={3}
               placeholder="Handle with care"
+              value={specialInstructions}
+              onChange={(e) => setSpecialInstructions(e.target.value)}
             />
           </div>
           <div className="flex justify-end gap-3 pt-4">
