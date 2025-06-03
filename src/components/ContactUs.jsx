@@ -53,7 +53,7 @@ const ContactUs = () => {
 
               {/* Email Option */}
               <a
-                href="mailto:support@bebasafe.com"
+                href="mailto:viggen.inc@zohomail.com"
                 className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-red-200 transition-all duration-300"
               >
                 <i className="fas fa-envelope mr-3"></i>

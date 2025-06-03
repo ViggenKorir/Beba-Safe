@@ -7,6 +7,7 @@ const OrderForm = ({ onClose }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
   const [showRedirectPopup, setShowRedirectPopup] = useState(false);
+  const handleClosePopup = () => setPopupOpen(false);
 
   const fields = [
     { name: "pickupLocation", label: "Pickup Location", type: "text", placeholder: "Enter pickup address" },
@@ -125,12 +126,12 @@ const OrderForm = ({ onClose }) => {
 
           <div className="flex justify-end gap-4 pt-4">
             <button
-              type="button"
-              onClick={handleClose}
-              className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200"
-            >
-              Cancel
-            </button>
+                  type="button"
+                  onClick={handleClosePopup}
+                  className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium"
+                >
+                  Cancel
+                </button>
             <button
               type="submit"
               className="px-6 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700"
