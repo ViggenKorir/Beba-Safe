@@ -1,91 +1,154 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const NewOrderForm = ({ onClose }) => {
-  const [formData, setFormData] = useState({
-    pickup: "",
-    delivery: "",
-    item: "",
-    quantity: 1,
-    weight: 1,
-    dimensions: "",
-    instructions: "",
-  });
+const OrderForm = ({ onClose }) => {
+  const { id: orderId } = useParams();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({});
+  const [showRedirectPopup, setShowRedirectPopup] = useState(false); // State for custom redirect pop-up
+
+  // Predefined fields
+  const fields = [
+    { name: "pickupLocation", label: "Pickup Location", type: "text", placeholder: "Enter pickup address" },
+    { name: "deliveryLocation", label: "Delivery Location", type: "text", placeholder: "Enter delivery address" },
+    { name: "contactPerson", label: "Contact Person", type: "text", placeholder: "Enter contact name" },
+    { name: "contactNo", label: "Contact Number", type: "text", placeholder: "+254700000000" },
+    { name: "itemType", label: "Item Type", type: "text", placeholder: "e.g. Laptop" },
+    { name: "quantity", label: "Quantity", type: "number", placeholder: "Enter quantity" },
+    { name: "weight", label: "Weight (kg)", type: "number", placeholder: "Enter weight" },
+    { name: "dimensions", label: "Dimensions (L x W x H)", type: "text", placeholder: "Enter dimensions" },
+    { name: "specialInstructions", label: "Special Instructions", type: "textarea", placeholder: "E.g. Fragile, handle with care" },
+  ];
+
+  // Fetch the existing order data by ID and pre-fill the form
+  useEffect(() => {
+    const fetchOrderData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/orders/${orderId}`);
+        if (response.ok) {
+          const orderData = await response.json();
+          setFormData(orderData); // Pre-fill the form with existing data
+        } else {
+          console.error("Failed to fetch order data.");
+        }
+      } catch (error) {
+        console.error("Error fetching order data:", error);
+      }
+    };
+
+    if (orderId) {
+      fetchOrderData();
+    }
+  }, [orderId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitting Order:", formData);
+
+    try {
+      const response = await fetch(
+        orderId
+          ? `http://localhost:3001/orders/${orderId}` // Update existing order
+          : "http://localhost:3001/orders", // Create new order
+        {
+          method: orderId ? "PATCH" : "POST", // Use PATCH for updates, POST for new orders
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (response.ok) {
+        setShowRedirectPopup(true); // Show the custom redirect pop-up
+      } else {
+        const errorData = await response.json();
+        console.error("Error submitting the order:", errorData);
+        alert("Failed to submit the order. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting the order:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
+
+  const handleRedirect = () => {
+    setShowRedirectPopup(false); // Close the pop-up
+    navigate("/payment"); // Redirect to the payment page
+  };
+
+  const handleClose = () => {
+    console.log("Close button clicked");
     onClose();
   };
 
   return (
     <div className="fixed inset-0 z-50 bg-blue-100 bg-blur-dark bg-opacity-40 flex justify-center items-center px-4">
       <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-2xl">
-        <h2 className="text-2xl font-bold mb-4 text-blue-900">New Delivery Request</h2>
+        <h2 className="text-2xl font-bold mb-4 text-blue-900">
+          {orderId ? "Update Delivery Request" : "Create New Delivery Request"}
+        </h2>
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {["pickup", "delivery"].map((field) => (
-              <div key={field}>
-                <label className="block mb-1 font-medium text-sm text-gray-700">
-                  {field.charAt(0).toUpperCase() + field.slice(1)} Location
-                </label>
+            {fields.slice(0, 2).map(({ name, label, type, placeholder }) => (
+              <div key={name}>
+                <label className="block mb-1 font-medium text-sm text-gray-700">{label}</label>
                 <input
-                  type="text"
-                  name={field}
-                  value={formData[field]}
+                  type={type || "text"}
+                  name={name}
+                  value={formData[name] || ""}
                   onChange={handleChange}
-                  placeholder={`Enter ${field} address`}
+                  placeholder={placeholder}
                   className="w-full rounded-xl border border-gray-300 p-3"
+                  required
                 />
               </div>
             ))}
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { name: "item", placeholder: "e.g. Laptop" },
-              { name: "quantity", type: "number" },
-              { name: "weight", type: "number" },
-              { name: "dimensions", placeholder: "L x W x H" },
-            ].map(({ name, type = "text", placeholder = "" }) => (
+            {fields.slice(2, 6).map(({ name, label, type, placeholder }) => (
               <div key={name}>
-                <label className="block mb-1 font-medium text-sm text-gray-700">
-                  {name.charAt(0).toUpperCase() + name.slice(1)}
-                </label>
+                <label className="block mb-1 font-medium text-sm text-gray-700">{label}</label>
                 <input
-                  type={type}
+                  type={type || "text"}
                   name={name}
-                  value={formData[name]}
+                  value={formData[name] || ""}
                   onChange={handleChange}
                   placeholder={placeholder}
                   className="w-full rounded-xl border border-gray-300 p-3"
+                  required
                 />
               </div>
             ))}
           </div>
 
           <div>
-            <label className="block mb-1 font-medium text-sm text-gray-700">
-              Special Instructions
-            </label>
-            <textarea
-              name="instructions"
-              value={formData.instructions}
-              onChange={handleChange}
-              rows={3}
-              placeholder="E.g. Fragile, handle with care"
-              className="w-full rounded-xl border border-gray-300 p-3"
-            />
+            {fields
+              .filter((field) => field.type === "textarea")
+              .map(({ name, label, placeholder }) => (
+                <div key={name}>
+                  <label className="block mb-1 font-medium text-sm text-gray-700">{label}</label>
+                  <textarea
+                    name={name}
+                    value={formData[name] || ""}
+                    onChange={handleChange}
+                    rows={3}
+                    placeholder={placeholder}
+                    className="w-full rounded-xl border border-gray-300 p-3"
+                  />
+                </div>
+              ))}
           </div>
 
           <div className="flex justify-end gap-4 pt-4">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200"
             >
               Cancel
@@ -94,14 +157,30 @@ const NewOrderForm = ({ onClose }) => {
               type="submit"
               className="px-6 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700"
             >
-              Submit Order
+              {orderId ? "Update Order" : "Proceed"}
             </button>
           </div>
         </form>
       </div>
+
+      {/* Custom Redirect Pop-up */}
+      {showRedirectPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white rounded-xl p-6 w-full max-w-md text-center">
+            <h3 className="text-xl font-bold mb-4 text-blue-900">Redirecting to Payment</h3>
+            <p className="text-gray-700 mb-6">Your order has been successfully submitted. You will now be redirected to the payment page.</p>
+            <button
+              onClick={handleRedirect}
+              className="px-6 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700"
+            >
+              Proceed to Payment
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default NewOrderForm;
+export default OrderForm;
 

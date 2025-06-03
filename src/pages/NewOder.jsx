@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const NewOrderForm = ({ onClose }) => {
+const NewOrderForm = ({ onClose, orderId }) => {
   if (!onClose) {
     console.error("onClose prop is required for NewOrderForm");
     return null; // Prevent rendering if onClose is not provided
@@ -86,8 +86,8 @@ const NewOrderForm = ({ onClose }) => {
           <div className="flex justify-end gap-3 pt-4">
             <button
               type="button"
-              className="bg-gray-200 px-4 py-2 rounded-xl"
-              onClick={onClose}
+              onClick={onClose} // Calls the onClose function passed as a prop
+              className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200"
             >
               Cancel
             </button>
@@ -106,6 +106,12 @@ const NewOrderForm = ({ onClose }) => {
 
 const AdminDashboard = () => {
   const [showNewOrderForm, setShowNewOrderForm] = useState(false);
+  const [isFormOpen, setFormOpen] = useState(false);
+
+  const handleClose = () => {
+    console.log("Close button clicked");
+    setFormOpen(false);
+  };
 
   return (
     <div className="min-h-screen flex bg-slate-50 font-['Work Sans','Noto Sans',sans-serif] overflow-x-hidden">
@@ -145,9 +151,11 @@ const AdminDashboard = () => {
       {/* Main Content */}
       <main className="flex-1 px-4 py-5">
         {/* ... existing main content ... */}
+        <button onClick={() => setFormOpen(true)}>Open Form</button>
+        {isFormOpen && <NewOrderForm onClose={handleClose} orderId={123} />}
       </main>
 
-      {showNewOrderForm && <NewOrderForm onClose={() => setShowNewOrderForm(false)} />}
+      {showNewOrderForm && <NewOrderForm onClose={() => setShowNewOrderForm(false)} orderId={123} />}
     </div>
   );
 };

@@ -1,6 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const OrderConfirmationPage = () => {
+  const [orderConfirmation, setOrderConfirmation] = useState(null);
+
+  // Fetch order confirmation details from db.json
+  useEffect(() => {
+    const fetchOrderConfirmation = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/orderConfirmation");
+        const data = await response.json();
+        setOrderConfirmation(data);
+      } catch (error) {
+        console.error("Error fetching order confirmation details:", error);
+      }
+    };
+
+    fetchOrderConfirmation();
+  }, []);
+
+  if (!orderConfirmation) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div
       className="relative flex min-h-screen flex-col bg-slate-50 overflow-x-hidden"
@@ -12,12 +33,16 @@ const OrderConfirmationPage = () => {
             {/* Order Progress */}
             <div className="flex flex-col gap-3 p-4">
               <div className="flex justify-between gap-6">
-                <p className="text-[#0e141b] text-base font-medium">Completed</p>
+                <p className="text-[#0e141b] text-base font-medium">
+                  {orderConfirmation.status}
+                </p>
               </div>
               <div className="rounded bg-[#d0dbe7]">
                 <div className="h-2 rounded bg-[#1980e6] w-full"></div>
               </div>
-              <p className="text-[#4e7397] text-sm font-normal">Order Placed</p>
+              <p className="text-[#4e7397] text-sm font-normal">
+                {orderConfirmation.progress}
+              </p>
             </div>
 
             {/* Order Confirmation */}
@@ -25,30 +50,22 @@ const OrderConfirmationPage = () => {
               Your order has been placed!
             </h1>
             <p className="text-base text-[#0e141b] px-4 pt-1 pb-3">
-              We've sent you a confirmation email with your order details. You can also view your order history in the app.
+              {orderConfirmation.message}
             </p>
 
             {/* Order Details */}
-            <h3 className="text-lg font-bold text-[#0e141b] px-4 pt-4 pb-2">Order Details</h3>
-            {[
-              { label: "Delivery Fee", value: "$25.00" },
-              { label: "Pickup", value: "Today, 12:00 PM - 5:00 PM" },
-              { label: "Drop-off", value: "Today, 1:00 PM - 6:00 PM" },
-              {
-                label: "Pickup Address",
-                value: "1234 Elm St, San Francisco, CA 94107",
-              },
-              {
-                label: "Drop-off Address",
-                value: "5678 Oak St, San Francisco, CA 94107",
-              },
-            ].map(({ label, value }) => (
+            <h3 className="text-lg font-bold text-[#0e141b] px-4 pt-4 pb-2">
+              Order Details
+            </h3>
+            {orderConfirmation.details.map(({ label, value }) => (
               <div
                 key={label}
                 className="flex items-center justify-between gap-4 bg-slate-50 px-4 py-2 min-h-[72px]"
               >
                 <div className="flex flex-col">
-                  <p className="text-base font-medium text-[#0e141b] line-clamp-1">{label}</p>
+                  <p className="text-base font-medium text-[#0e141b] line-clamp-1">
+                    {label}
+                  </p>
                   <p className="text-sm text-[#4e7397] line-clamp-2">{value}</p>
                 </div>
                 <div className="shrink-0">
@@ -58,14 +75,18 @@ const OrderConfirmationPage = () => {
             ))}
 
             {/* Payment Method */}
-            <h3 className="text-lg font-bold text-[#0e141b] px-4 pt-4 pb-2">Payment Method</h3>
+            <h3 className="text-lg font-bold text-[#0e141b] px-4 pt-4 pb-2">
+              Payment Method
+            </h3>
             <div className="flex items-center justify-between gap-4 bg-slate-50 px-4 min-h-14">
               <div className="flex items-center gap-4">
                 <div
                   className="h-6 w-10 shrink-0 bg-center bg-no-repeat bg-contain"
                   style={{ backgroundImage: "url('/visa.svg')" }}
                 ></div>
-                <p className="text-base text-[#0e141b] truncate">1234</p>
+                <p className="text-base text-[#0e141b] truncate">
+                  {orderConfirmation.paymentMethod.lastFourDigits}
+                </p>
               </div>
               <div className="shrink-0">
                 <button className="h-8 px-4 rounded-xl bg-[#e7edf3] text-sm font-medium text-[#0e141b]">
@@ -75,11 +96,17 @@ const OrderConfirmationPage = () => {
             </div>
 
             {/* Total */}
-            <h3 className="text-lg font-bold text-[#0e141b] px-4 pt-4 pb-2">Total</h3>
+            <h3 className="text-lg font-bold text-[#0e141b] px-4 pt-4 pb-2">
+              Total
+            </h3>
             <div className="flex items-center justify-between gap-4 bg-slate-50 px-4 min-h-14">
-              <p className="text-base text-[#0e141b] truncate">$25.00</p>
+              <p className="text-base text-[#0e141b] truncate">
+                {orderConfirmation.total}
+              </p>
               <div className="shrink-0">
-                <p className="text-base font-normal text-[#0e141b]">$25.00</p>
+                <p className="text-base font-normal text-[#0e141b]">
+                  {orderConfirmation.total}
+                </p>
               </div>
             </div>
 

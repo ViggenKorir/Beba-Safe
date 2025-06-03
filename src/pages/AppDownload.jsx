@@ -6,7 +6,9 @@ function AppDownload() {
     <>
       <div>
         <h1 className="text-4xl font-bold text-center mt-10 mb-5">
-          Get the app on PlayStore or AppStore
+          {/* Get the app on PlayStore or AppStore */}
+          App coming soon <br />
+          On PlayStore & AppStore
         </h1>
         <div className="flex justify-center items-center">
           <a

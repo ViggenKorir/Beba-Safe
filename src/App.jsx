@@ -6,7 +6,7 @@ import {
   SignInButton,
   SignUpButton,
   UserButton,
-} from "@clerk/clerk-react";
+} from "@clerk/clerk-react";    
 
 // Components
 import { Navbar } from "./components/NavBar";
@@ -36,14 +36,6 @@ function App() {
   return (
     <>
       <Navbar />
-
-      {/* <SignedOut>
-        
-        </SignedOut>
-        <SignedIn>
-         
-        </SignedIn> */}
-
       <Routes>
         <Route
           path="/"

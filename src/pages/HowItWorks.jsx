@@ -1,11 +1,24 @@
-const steps = [
-	"Sign up and create your account.",
-	"Choose your delivery or pickup service.",
-	"Track your package in real-time.",
-	"Receive your package securely and on time.",
-];
+import React, { useEffect, useState } from "react";
+import { Footer } from "../components/Footer";
 
 const HowItWorks = () => {
+	const [steps, setSteps] = useState([]);
+
+	// Fetch steps from db.json
+	useEffect(() => {
+		const fetchSteps = async () => {
+			try {
+				const response = await fetch("http://localhost:3001/steps");
+				const data = await response.json();
+				setSteps(data);
+			} catch (error) {
+				console.error("Error fetching steps:", error);
+			}
+		};
+
+		fetchSteps();
+	}, []);
+
 	return (
 		<section className="bg-gradient-to-b from-gray-100 to-white py-16">
 			<div className="container mx-auto text-center px-6">

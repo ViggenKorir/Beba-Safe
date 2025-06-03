@@ -1,41 +1,201 @@
 {
-    "orders": [
-      {
-        "id": 1,
-        "pickupLocation": "1234 Main St",
-        "deliveryLocation": "5678 Elm St",
-        "itemType": "Document",
-        "quantity": 1,
-        "weight": 0.5,
-        "dimensions": "10x5x1",
-        "specialInstructions": "Handle with care",
-        "status": "Pending",
-        "user": "Jane Doe",
-        "courier": "John Smith"
-      }
-    ],
-    "couriers": [
-      {
-        "id": 1,
-        "name": "John Smith",
-        "status": "Available"
-      }
-    ],
-    "users": [
-      {
-        "id": 1,
-        "name": "Jane Doe",
-        "email": "jane@example.com",
-        "phone": "+254700000000"
-      }
-    ],
-    "reports": [
-      {
-        "id": 1,
-        "type": "Daily",
-        "generatedAt": "2025-05-20T10:00:00Z",
-        "ordersDelivered": 12
-      }
-    ]
-  }
-  
+  "orders": [
+    {
+      "id": 1,
+      "pickupLocation": "1234 Main St",
+      "deliveryLocation": "5678 Elm St",
+      "itemType": "Document",
+      "quantity": 1,
+      "weight": 0.5,
+      "dimensions": "10x5x1",
+      "specialInstructions": "Handle with care",
+      "status": "Pending",
+      "contactPerson": "Jane Doe",
+      "contactNo": "+254700000000",
+      "courier": "John Smith"
+    },
+    {
+      "id": 2,
+      "pickupLocation": "Westlands",
+      "deliveryLocation": "CBD",
+      "itemType": "Package",
+      "quantity": 2,
+      "weight": 1.2,
+      "dimensions": "15x10x5",
+      "specialInstructions": "Fragile",
+      "status": "In Progress",
+      "contactPerson": "John Doe",
+      "contactNo": "+254711111111",
+      "courier": "Jane Smith"
+    },
+    {
+      "id": 3,
+      "pickupLocation": "Kilimani",
+      "deliveryLocation": "Parklands",
+      "itemType": "Electronics",
+      "quantity": 1,
+      "weight": 3.5,
+      "dimensions": "20x15x10",
+      "specialInstructions": "Handle with care",
+      "status": "Completed",
+      "contactPerson": "Alice Johnson",
+      "contactNo": "+254722222222",
+      "courier": "Mark Lee"
+    }
+  ],
+  "couriers": [
+    {
+      "id": 1,
+      "name": "John Smith",
+      "status": "Available"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "status": "Busy"
+    },
+    {
+      "id": 3,
+      "name": "Mark Lee",
+      "status": "Available"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Jane Doe",
+      "email": "jane@example.com",
+      "phone": "+254700000000"
+    },
+    {
+      "id": 2,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+254711111111"
+    },
+    {
+      "id": 3,
+      "name": "Alice Johnson",
+      "email": "alice@example.com",
+      "phone": "+254722222222"
+    }
+  ],
+  "reports": [
+    {
+      "id": 1,
+      "type": "Daily",
+      "generatedAt": "2025-05-20T10:00:00Z",
+      "ordersDelivered": 12
+    },
+    {
+      "id": 2,
+      "type": "Weekly",
+      "generatedAt": "2025-05-27T10:00:00Z",
+      "ordersDelivered": 45
+    }
+  ],
+  "menu": [
+    { "id": 1, "label": "Orders" },
+    { "id": 2, "label": "Couriers" },
+    { "id": 3, "label": "Users" },
+    { "id": 4, "label": "Reports" },
+    { "id": 5, "label": "Settings" }
+  ],
+  "statuses": [
+    { "id": 1, "label": "All" },
+    { "id": 2, "label": "Pending" },
+    { "id": 3, "label": "In Progress" },
+    { "id": 4, "label": "Completed" },
+    { "id": 5, "label": "Canceled" }
+  ],
+  "recentOrders": [
+    {
+      "id": "#1234",
+      "pickup": "Westlands",
+      "delivery": "CBD",
+      "status": "In Progress"
+    },
+    {
+      "id": "#1235",
+      "pickup": "Kilimani",
+      "delivery": "Parklands",
+      "status": "Pending"
+    },
+    {
+      "id": "#1236",
+      "pickup": "CBD",
+      "delivery": "South B",
+      "status": "Completed"
+    }
+  ],
+  "statusOverview": [
+    {
+      "label": "Pending",
+      "count": 3
+    },
+    {
+      "label": "In Progress",
+      "count": 2
+    },
+    {
+      "label": "Completed",
+      "count": 8
+    },
+    {
+      "label": "Canceled",
+      "count": 1
+    }
+  ],
+  "features": [
+    {
+      "icon": "fas fa-rocket",
+      "title": "Speed & Efficiency",
+      "description": "Optimized routes and experienced couriers ensure fast deliveries."
+    },
+    {
+      "icon": "fas fa-shield-alt",
+      "title": "Security & Reliability",
+      "description": "Your packages are handled with care every step of the way."
+    },
+    {
+      "icon": "fas fa-map-marker-alt",
+      "title": "Nairobi-Wide Coverage",
+      "description": "We cover the entire Nairobi CBD."
+    },
+    {
+      "icon": "fa-truck-fast",
+      "title": "Speed & Accuracy",
+      "desc": "We deliver on time, every time — even in Nairobi’s busy traffic."
+    },
+    {
+      "icon": "fa-shield-halved",
+      "title": "Safety First",
+      "desc": "Your items are insured and handled with utmost care."
+    },
+    {
+      "icon": "fa-mobile-screen-button",
+      "title": "Track in Real-Time",
+      "desc": "Know exactly where your delivery is at all times via live tracking."
+    }
+  ],
+  "steps": [
+    { "id": 1, "description": "Sign up or log in" },
+    { "id": 2, "description": "Fill pickup & delivery details" },
+    { "id": 3, "description": "Confirm & pay via M-Pesa" },
+    { "id": 4, "description": "Track your delivery in real-time" }
+  ],
+  "testimonials": [
+    {
+      "name": "Angela M.",
+      "review": "Super fast delivery! I got my documents across town in 25 minutes."
+    },
+    {
+      "name": "Brian K.",
+      "review": "Loved the real-time tracking and the friendly support."
+    },
+    {
+      "name": "Susan N.",
+      "review": "Much cheaper than other services, and they showed up on time!"
+    }
+  ]
+}

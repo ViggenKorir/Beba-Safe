@@ -36,26 +36,25 @@ const ContactUs = () => {
             <div className="space-y-4">
               {/* Call Option */}
               <a
-                href="tel:+254712856197"
-                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-blue-200 transition-all duration-300"
+                href="tel:+254715519432"
+                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-green-300 transition-all duration-300"
               >
                 <i className="fas fa-phone-alt mr-3"></i>
-                +254 712 856 197 - Call  Ryan
+                +254 715 519 432 - Contact Ryan
               </a>
 
               <a
-                href="tel:+254715519432"
-                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-blue-200 transition-all duration-300"
+                href="tel:+254712856197"
+                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-green-300 transition-all duration-300"
               >
                 <i className="fas fa-phone-alt mr-3"></i>
-                +254 715 519 432 - Call  John
+                +254 712 856 197 - Contact Wayne
               </a>
-
 
               {/* Email Option */}
               <a
                 href="mailto:support@bebasafe.com"
-                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-blue-200 transition-all duration-300"
+                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-red-200 transition-all duration-300"
               >
                 <i className="fas fa-envelope mr-3"></i>
                 support@bebasafe.com - Email us
@@ -65,14 +64,15 @@ const ContactUs = () => {
         </div>
       )}
 
-      <h1>
+      {/* <h1 className="text-3xl font-bold text-center mt-10">
+        Need assistance? <br />
         Click on the Contact Us button below to reach out to us!
-      </h1>
-      <br />
+      </h1> */}
+      {/* <br />
       <img src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1747995627/vh8rdjtbiystq5pgo17g.png" 
       alt="arrow indicator"
       className=""
-      />
+      /> */}
     </>
   );
 };

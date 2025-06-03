@@ -1,6 +1,8 @@
+import ContactUs from "../components/ContactUs";
+
 const AboutUs = () => {
   return (
-    <section className="bg-gray-50 py-16">
+    <section className="bg-gray-50 py-30">
       <div className="container mx-auto px-6 text-center">
         <h1 className="text-4xl font-extrabold text-blue-600 mb-6">About Us</h1>
         <p className="text-lg text-gray-700 mb-12">
@@ -39,12 +41,11 @@ const AboutUs = () => {
           <p className="text-lg text-gray-700 mb-6">
             With a dedicated team, cutting-edge technology, and a passion for excellence, we ensure your deliveries are handled with care and precision.
           </p>
-          <a
-            href="/contact"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300"
-          >
-            Contact Us
-          </a>
+          
+          <ContactUs 
+          className="bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 z-999"
+          />
+
         </div>
       </div>
     </section>

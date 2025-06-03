@@ -7,6 +7,7 @@ import {
 } from "@clerk/clerk-react";
 import { useState, useEffect } from "react";
 import DashboardButton from "./DashBoardButton";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,20 +39,20 @@ export function Navbar() {
           <img
             src="src/assets/BebaSafe Logo.png"
             alt="BebaSafe Logo"
-            className="rounded-full w-12 h-12 mr-2"
+            className="rounded-full w-10 h-10 mr-2"
           />
           BebaSafe
         </a>
 
         {/* Desktop Menu */}
-        <section className="hidden md:flex bg-white rounded-full items-center p-2">
+        <section className="hidden md:flex items-center space-x-4">
           <ul className="flex items-center space-x-4">
             <li>
               <a
                 href="/"
                 className={`px-4 py-2 rounded-lg ${
                   isScrolled
-                    ? "bg-transparent text-blue-600 hover:bg-gray-200"
+                    ? "bg-transparent text-white hover:bg-blue-700"
                     : "bg-transparent text-black hover:bg-gray-100"
                 } font-medium transition`}
               >
@@ -63,7 +64,7 @@ export function Navbar() {
                 href="/about"
                 className={`px-4 py-2 rounded-lg ${
                   isScrolled
-                    ? "bg-transparent text-blue-600 hover:bg-gray-200"
+                    ? "bg-transparent text-white hover:bg-blue-700"
                     : "bg-transparent text-black hover:bg-gray-100"
                 } font-medium transition`}
               >
@@ -72,14 +73,14 @@ export function Navbar() {
             </li>
             <li>
               <a
-                href="/services"
+                href="/how-it-works"
                 className={`px-4 py-2 rounded-lg ${
                   isScrolled
-                    ? "bg-transparent text-blue-600 hover:bg-gray-200"
+                    ? "bg-transparent text-white hover:bg-blue-700"
                     : "bg-transparent text-black hover:bg-gray-100"
                 } font-medium transition`}
               >
-                Services
+                How It Works
               </a>
             </li>
             <li>
@@ -87,7 +88,7 @@ export function Navbar() {
                 href="/contact"
                 className={`px-4 py-2 rounded-lg ${
                   isScrolled
-                    ? "bg-transparent text-blue-600 hover:bg-gray-200"
+                    ? "bg-transparent text-white hover:bg-blue-700"
                     : "bg-transparent text-black hover:bg-gray-100"
                 } font-medium transition`}
               >
@@ -99,7 +100,7 @@ export function Navbar() {
                 href="/download"
                 className={`px-4 py-2 rounded-lg ${
                   isScrolled
-                    ? "bg-transparent text-blue-600 hover:bg-gray-200"
+                    ? "bg-transparent text-white hover:bg-blue-700"
                     : "bg-transparent text-black hover:bg-gray-100"
                 } font-medium transition`}
               >
@@ -111,10 +112,10 @@ export function Navbar() {
 
         {/* Sign-In Buttons */}
         <div className="hidden md:block">
-          <div className="space-x-6">
+          <div className="space-x-4">
             <SignedOut>
-              <SignInButton className="bg-white text-blue-600 px-4 py-2 rounded-xl font-bold" />
-              <SignUpButton className="bg-white text-blue-600 px-4 py-2 rounded-xl font-bold" />
+              <SignInButton className="bg-white text-blue-600 px-4 py-2 rounded-lg font-bold" />
+              <SignUpButton className="bg-white text-blue-600 px-4 py-2 rounded-lg font-bold" />
             </SignedOut>
 
             <SignedIn>
@@ -122,9 +123,7 @@ export function Navbar() {
               <UserButton
                 appearance={{
                   elements: {
-                    userButtonAvatar: "w-30 h-30 border-2 border-blue-600 rounded-full", 
-                    // userButtonPopoverCard: "bg-white shadow-lg rounded-lg", 
-                    // userButtonPopoverActionButton: "text-blue-600 hover:text-blue-800", 
+                    userButtonAvatar: "w-8 h-8 border-2 border-blue-600 rounded-full",
                   },
                 }}
               />
@@ -146,7 +145,7 @@ export function Navbar() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-blue-600 p-6">
+        <div className="fixed top-0 left-0 w-full h-full bg-blue-600 p-6 z-40">
           <div className="flex justify-between items-center mb-6">
             <a
               href="/"
@@ -179,8 +178,8 @@ export function Navbar() {
               </a>
             </li>
             <li>
-              <a href="/services" className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200">
-                Services
+              <a href="/how-it-works" className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200">
+                How It Works
               </a>
             </li>
             <li>
@@ -204,9 +203,7 @@ export function Navbar() {
               <UserButton
                 appearance={{
                   elements: {
-                    userButtonAvatarBox: "w-10 h-10 border-2 border-blue-600 rounded-full", // Customize avatar size and border
-                    userButtonPopoverCard: "bg-white shadow-lg rounded-lg", // Customize dropdown menu
-                    userButtonPopoverActionButton: "text-blue-600 hover:text-blue-800", // Customize dropdown actions
+                    userButtonAvatar: "w-10 h-10 border-2 border-white rounded-full",
                   },
                 }}
               />

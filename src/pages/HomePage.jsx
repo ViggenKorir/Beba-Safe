@@ -1,4 +1,5 @@
 // src/pages/HomePage.jsx
+import React, { useEffect, useState } from "react";
 import {
     SignedIn,
     SignedOut,
@@ -11,46 +12,32 @@ import {
   
   export default function HomePage() {
     const navigate = useNavigate();
+    const [features, setFeatures] = useState([]);
+    const [steps, setSteps] = useState([]);
+    const [testimonials, setTestimonials] = useState([]);
   
-    const features = [
-      {
-        icon: "fa-truck-fast",
-        title: "Speed & Accuracy",
-        desc: "We deliver on time, every time — even in Nairobi’s busy traffic.",
-      },
-      {
-        icon: "fa-shield-halved",
-        title: "Safety First",
-        desc: "Your items are insured and handled with utmost care.",
-      },
-      {
-        icon: "fa-mobile-screen-button",
-        title: "Track in Real-Time",
-        desc: "Know exactly where your delivery is at all times via live tracking.",
-      },
-    ];
+    // Fetch data from db.json
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const featuresResponse = await fetch("http://localhost:3001/features");
+          const featuresData = await featuresResponse.json();
+          setFeatures(featuresData);
   
-    const steps = [
-      "Sign up or log in",
-      "Fill pickup & delivery details",
-      "Confirm & pay via M-Pesa",
-      "Track your delivery in real-time",
-    ];
+          const stepsResponse = await fetch("http://localhost:3001/steps");
+          const stepsData = await stepsResponse.json();
+          setSteps(stepsData);
   
-    const testimonials = [
-      {
-        name: "Angela M.",
-        review: "Super fast delivery! I got my documents across town in 25 minutes.",
-      },
-      {
-        name: "Brian K.",
-        review: "Loved the real-time tracking and the friendly support.",
-      },
-      {
-        name: "Susan N.",
-        review: "Much cheaper than other services, and they showed up on time!",
-      },
-    ];
+          const testimonialsResponse = await fetch("http://localhost:3001/testimonials");
+          const testimonialsData = await testimonialsResponse.json();
+          setTestimonials(testimonialsData);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+  
+      fetchData();
+    }, []);
   
     return (
       <>
@@ -74,7 +61,7 @@ import {
             Reliable Goods Delivery in Nairobi CBD
           </h2>
           <p className="text-lg text-gray-700 max-w-xl mx-auto mb-6">
-            Beba Safe is your smart solution for quick, secure and affordable package delivery around town.
+            Beba Safe is your smart solution for quick, secure, and affordable package delivery around town.
           </p>
           <button
             onClick={() => navigate("/request")}
@@ -83,10 +70,6 @@ import {
             Request a Delivery
           </button>
         </section>
-
-        <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      {/* <OrderCTA /> */}
-    </div>
   
         {/* Why Choose Us */}
         <section className="py-12 bg-white text-center">
@@ -99,7 +82,7 @@ import {
               >
                 <i className={`fas ${f.icon} text-4xl text-blue-500 mb-4`} />
                 <h4 className="text-xl font-semibold">{f.title}</h4>
-                <p className="text-gray-600 mt-2">{f.desc}</p>
+                <p className="text-gray-600 mt-2">{f.description || f.desc}</p>
               </div>
             ))}
           </div>
@@ -129,7 +112,6 @@ import {
               loading="lazy"
               style={{ border: 0 }}
               allowFullScreen
-              // src={`https://www.google.com/maps/embed/v1/place?q=Nairobi+CBD&key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`}
             />
           </div>
         </section>
@@ -154,4 +136,3 @@ import {
       </>
     );
   }
-  
