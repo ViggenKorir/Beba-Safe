@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { supabase } from "../supabaseClient";
 
 const OrderForm = ({ onClose }) => {
   const { id: orderId } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({});
-  const [showRedirectPopup, setShowRedirectPopup] = useState(false); // State for custom redirect pop-up
+  const [showRedirectPopup, setShowRedirectPopup] = useState(false);
 
-  // Predefined fields
   const fields = [
     { name: "pickupLocation", label: "Pickup Location", type: "text", placeholder: "Enter pickup address" },
     { name: "deliveryLocation", label: "Delivery Location", type: "text", placeholder: "Enter delivery address" },
@@ -20,25 +20,17 @@ const OrderForm = ({ onClose }) => {
     { name: "specialInstructions", label: "Special Instructions", type: "textarea", placeholder: "E.g. Fragile, handle with care" },
   ];
 
-  // Fetch the existing order data by ID and pre-fill the form
   useEffect(() => {
     const fetchOrderData = async () => {
-      try {
-        const response = await fetch(`http://localhost:3001/orders/${orderId}`);
-        if (response.ok) {
-          const orderData = await response.json();
-          setFormData(orderData); // Pre-fill the form with existing data
-        } else {
-          console.error("Failed to fetch order data.");
-        }
-      } catch (error) {
-        console.error("Error fetching order data:", error);
+      const { data, error } = await supabase.from("orders").select("*").eq("id", orderId).single();
+      if (error) {
+        console.error("Error fetching order:", error);
+      } else {
+        setFormData(data);
       }
     };
 
-    if (orderId) {
-      fetchOrderData();
-    }
+    if (orderId) fetchOrderData();
   }, [orderId]);
 
   const handleChange = (e) => {
@@ -48,46 +40,34 @@ const OrderForm = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch(
-        orderId
-          ? `http://localhost:3001/orders/${orderId}` // Update existing order
-          : "http://localhost:3001/orders", // Create new order
-        {
-          method: orderId ? "PATCH" : "POST", // Use PATCH for updates, POST for new orders
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const { error } = orderId
+        ? await supabase.from("orders").update(formData).eq("id", orderId)
+        : await supabase.from("orders").insert([{ ...formData, status: "Pending" }]);
 
-      if (response.ok) {
-        setShowRedirectPopup(true); // Show the custom redirect pop-up
+      if (error) {
+        console.error("Error saving order:", error);
+        alert("Failed to save the order.");
       } else {
-        const errorData = await response.json();
-        console.error("Error submitting the order:", errorData);
-        alert("Failed to submit the order. Please try again.");
+        setShowRedirectPopup(true);
       }
-    } catch (error) {
-      console.error("Error submitting the order:", error);
+    } catch (err) {
+      console.error("Submission error:", err);
       alert("An error occurred. Please try again.");
     }
   };
 
   const handleRedirect = () => {
-    setShowRedirectPopup(false); // Close the pop-up
-    navigate("/payment"); // Redirect to the payment page
+    setShowRedirectPopup(false);
+    navigate("/payment");
   };
 
   const handleClose = () => {
-    console.log("Close button clicked");
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-blue-100 bg-blur-dark bg-opacity-40 flex justify-center items-center px-4">
+    <div className="fixed inset-0 z-50 bg-blue-100 bg-opacity-40 flex justify-center items-center px-4">
       <div className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-2xl">
         <h2 className="text-2xl font-bold mb-4 text-blue-900">
           {orderId ? "Update Delivery Request" : "Create New Delivery Request"}
@@ -128,21 +108,19 @@ const OrderForm = ({ onClose }) => {
           </div>
 
           <div>
-            {fields
-              .filter((field) => field.type === "textarea")
-              .map(({ name, label, placeholder }) => (
-                <div key={name}>
-                  <label className="block mb-1 font-medium text-sm text-gray-700">{label}</label>
-                  <textarea
-                    name={name}
-                    value={formData[name] || ""}
-                    onChange={handleChange}
-                    rows={3}
-                    placeholder={placeholder}
-                    className="w-full rounded-xl border border-gray-300 p-3"
-                  />
-                </div>
-              ))}
+            {fields.filter((field) => field.type === "textarea").map(({ name, label, placeholder }) => (
+              <div key={name}>
+                <label className="block mb-1 font-medium text-sm text-gray-700">{label}</label>
+                <textarea
+                  name={name}
+                  value={formData[name] || ""}
+                  onChange={handleChange}
+                  rows={3}
+                  placeholder={placeholder}
+                  className="w-full rounded-xl border border-gray-300 p-3"
+                />
+              </div>
+            ))}
           </div>
 
           <div className="flex justify-end gap-4 pt-4">
@@ -163,12 +141,13 @@ const OrderForm = ({ onClose }) => {
         </form>
       </div>
 
-      {/* Custom Redirect Pop-up */}
       {showRedirectPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-xl p-6 w-full max-w-md text-center">
             <h3 className="text-xl font-bold mb-4 text-blue-900">Redirecting to Payment</h3>
-            <p className="text-gray-700 mb-6">Your order has been successfully submitted. You will now be redirected to the payment page.</p>
+            <p className="text-gray-700 mb-6">
+              Your order has been successfully submitted. You will now be redirected to the payment page.
+            </p>
             <button
               onClick={handleRedirect}
               className="px-6 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700"
@@ -183,4 +162,3 @@ const OrderForm = ({ onClose }) => {
 };
 
 export default OrderForm;
-

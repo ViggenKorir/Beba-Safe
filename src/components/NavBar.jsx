@@ -37,7 +37,7 @@ export function Navbar() {
           }`}
         >
           <img
-            src="src/assets/BebaSafe Logo.png"
+            src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1748977333/pmlhudzzwrruqcd0kokw.png"
             alt="BebaSafe Logo"
             className="rounded-full w-10 h-10 mr-2"
           />

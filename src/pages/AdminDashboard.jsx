@@ -30,34 +30,11 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex bg-slate-50 font-['Work Sans','Noto Sans',sans-serif] overflow-x-hidden pt-20">
-      <aside className="w-80 px-6 py-5">
-        <div className="flex flex-col gap-4 bg-slate-50 p-4 min-h-[700px] justify-between">
-          <nav className="flex flex-col gap-2">
-            {["Orders", "Couriers", "Users", "Reports", "Settings"].map((label, index) => (
-              <div
-                key={index}
-                className={`flex items-center gap-3 px-3 py-2 rounded-xl ${label === "Orders" ? "bg-[#e7edf3]" : ""}`}
-              >
-                <div className="text-[#0e141b]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
-                    <rect x="32" y="32" width="192" height="192" rx="16" />
-                  </svg>
-                </div>
-                <p className="text-sm font-medium text-[#0e141b]">{label}</p>
-              </div>
-            ))}
-          </nav>
-          <button className="fixed bottom-6 left-6 w-1.5/6 bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 z-999">
-            New Order
-          </button>
-        </div>
-      </aside>
-
+    <div className="min-h-screen flex flex-col bg-slate-50 font-['Work Sans','Noto Sans',sans-serif] overflow-x-hidden pt-20">
       <main className="flex-1 px-4 py-5">
-        <div className="flex justify-between items-center px-4 py-3">
-          <h1 className="text-[32px] font-bold text-[#0e141b]">All Orders</h1>
-          <button className="h-8 px-4 rounded-xl bg-[#e7edf3] text-sm font-medium text-[#0e141b]">Export</button>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center px-4 py-3 gap-4">
+          <h1 className="text-2xl md:text-[32px] font-bold text-[#0e141b]">All Orders</h1>
+          <button className="h-10 px-5 rounded-xl bg-[#e7edf3] text-sm font-medium text-[#0e141b]">Export</button>
         </div>
 
         <div className="px-4 py-3">
@@ -86,13 +63,13 @@ const AdminDashboard = () => {
           ))}
         </div>
 
-        <div className="px-4 py-3 overflow-auto">
-          <div className="overflow-hidden rounded-xl border border-[#d0dbe7] bg-slate-50">
-            <table className="w-full">
+        <div className="px-4 py-3 overflow-x-auto">
+          <div className="min-w-[600px] overflow-hidden rounded-xl border border-[#d0dbe7] bg-slate-50">
+            <table className="w-full text-sm">
               <thead className="bg-slate-50">
                 <tr>
                   {["Order ID", "Pickup Location", "Delivery Location", "Status", "Actions"].map((header, index) => (
-                    <th key={index} className="px-4 py-3 text-left text-sm font-medium text-[#0e141b]">
+                    <th key={index} className="px-4 py-3 text-left font-medium text-[#0e141b]">
                       {header}
                     </th>
                   ))}
@@ -101,11 +78,11 @@ const AdminDashboard = () => {
               <tbody>
                 {orders.map((order) => (
                   <tr key={order.id} className="border-t border-[#d0dbe7]">
-                    <td className="px-4 py-2 text-sm font-normal text-[#0e141b]">{order.id}</td>
-                    <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">{order.pickupLocation}</td>
-                    <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">{order.deliveryLocation}</td>
-                    <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">{order.status}</td>
-                    <td className="px-4 py-2 text-sm font-normal text-[#4e7397]">
+                    <td className="px-4 py-2 text-[#0e141b]">{order.id}</td>
+                    <td className="px-4 py-2 text-[#4e7397]">{order.pickupLocation}</td>
+                    <td className="px-4 py-2 text-[#4e7397]">{order.deliveryLocation}</td>
+                    <td className="px-4 py-2 text-[#4e7397]">{order.status}</td>
+                    <td className="px-4 py-2 text-[#4e7397]">
                       <button className="text-blue-600 hover:underline">View</button>
                     </td>
                   </tr>

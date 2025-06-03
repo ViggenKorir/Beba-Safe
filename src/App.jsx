@@ -6,27 +6,27 @@ import {
   SignInButton,
   SignUpButton,
   UserButton,
-} from "@clerk/clerk-react";    
+} from "@clerk/clerk-react";
 
 // Components
 import { Navbar } from "./components/NavBar";
-import HomePage from "./pages/HomePage";
 import { HeroSection } from "./components/HeroSection";
-// import { BookDeliveryForm } from "./pages/BookDelivery";
 import OrderConfirmationPage from "./pages/OderConfirmation";
-import { MapSection } from "./components/MapSection";
 import { FeaturesSection } from "./components/FeaturesSection";
 import { OrderCTA } from "./components/OderCTA";
 import { Footer } from "./components/Footer";
+import ContactUs from "./components/ContactUs";
+
+// Pages
+import HomePage from "./pages/HomePage";
 import AboutUs from "./pages/AboutUs";
 import AdminDashboard from "./pages/AdminDashboard";
 import UserDashboard from "./pages/UserDashboard";
 import OrderForm from "./pages/OrderForm";
 import SignInRedirect from "./pages/SignInError";
 import HowItWorks from "./pages/HowItWorks";
-import NotFound from "./pages/NotFound";
-import ContactUs from "./components/ContactUs";
 import AppDownload from "./pages/AppDownload";
+import NotFound from "./pages/NotFound";
 
 const ProtectedRoute = ({ children }) => {
   return <SignedIn>{children}</SignedIn>;
@@ -34,9 +34,11 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   return (
-    <>
+    <div className="min-h-screen bg-white font-['Work Sans','Noto Sans',sans-serif]">
       <Navbar />
+
       <Routes>
+        {/* Home */}
         <Route
           path="/"
           element={
@@ -49,49 +51,38 @@ function App() {
                 <div className="flex justify-center">
                   <img
                     src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1747394826/Nairobi_CBD_fx0vgg.png"
-                    alt="Dispatch-PicUp maps image"
-                    className="rounded-xl w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg shadow-lg object-cover"
+                    alt="Nairobi map"
+                    className="rounded-xl w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg shadow-md object-cover"
                   />
                 </div>
-                <ContactUs />
               </section>
               <FeaturesSection />
+              <ContactUs />
               <Footer />
             </>
           }
         />
-        <Route
-          path="/home"
-          element={
-            <div className="min-h-screen flex justify-center items-center bg-gray-100">
-              <HomePage />
-            </div>
-          }
-        />
-        <Route
-          path="/download"
-          element={
-            <div className="min-h-screen flex justify-center items-center bg-gray-100">
-              <AppDownload />
-            </div>
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <div className="min-h-screen flex justify-center items-center bg-gray-100">
-              <AboutUs />
-            </div>
-          }
-        />
-        <Route
-          path="/contact"
-          element={
-            <div className="min-h-screen flex justify-center items-center bg-gray-100">
-              <ContactUs />
-            </div>
-          }
-        />
+
+        {/* Simple Wrapper Pages */}
+        {[
+          { path: "/home", Component: HomePage },
+          { path: "/download", Component: AppDownload },
+          { path: "/about", Component: AboutUs },
+          { path: "/contact", Component: ContactUs },
+          { path: "/how-it-works", Component: HowItWorks },
+        ].map(({ path, Component }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <div className="min-h-screen flex justify-center items-center bg-gray-100 px-4">
+                <Component />
+              </div>
+            }
+          />
+        ))}
+
+        {/* Protected Routes */}
         <Route
           path="/admin"
           element={
@@ -116,7 +107,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/order-confirmation"
           element={
@@ -125,26 +115,22 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* Sign-in */}
         <Route path="/sign-in-error" element={<SignInRedirect />} />
         <Route
           path="/sign-in"
           element={
-            <div className="flex items-center justify-center h-screen">
+            <div className="flex items-center justify-center h-screen bg-gray-50">
               <SignInButton mode="modal" />
             </div>
           }
         />
-        <Route
-          path="/how-it-works"
-          element={
-            <div className="min-h-screen flex justify-center items-center bg-gray-100">
-              <HowItWorks />
-            </div>
-          }
-        />
+
+        {/* Fallback */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
