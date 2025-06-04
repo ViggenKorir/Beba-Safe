@@ -132,6 +132,22 @@ export function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
+        <SignedOut>
+              <SignInButton
+                style={{ position: "absolute", right: "3rem", top: "1rem" }}
+                className="block w-4lg bg-white text-blue-600 px-4 py-2 rounded-lg font-bold"
+              />
+            </SignedOut>
+        <SignedIn>
+              <DashboardButton />
+              <UserButton
+                appearance={{
+                  elements: {
+                    userButtonAvatar: "w-10 h-10 border-2 border-white rounded-full",
+                  },
+                }}
+              />
+            </SignedIn>
         <button
           className={`md:hidden p-2 rounded focus:outline-none focus:ring-2 ${
             isScrolled ? "text-white focus:ring-white" : "text-black focus:ring-black"
@@ -141,6 +157,7 @@ export function Navbar() {
         >
           <i className="fas fa-bars"></i>
         </button>
+        
       </div>
 
       {/* Mobile Menu */}
@@ -152,7 +169,7 @@ export function Navbar() {
               className="text-white text-xl font-bold flex items-center"
             >
               <img
-                src="src/assets/BebaSafe Logo.png"
+                src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1748977333/pmlhudzzwrruqcd0kokw.png"
                 alt="BebaSafe Logo"
                 className="rounded-full w-10 h-10 mr-2"
               />
@@ -165,6 +182,7 @@ export function Navbar() {
             >
               <i className="fas fa-times"></i>
             </button>
+            
           </div>
           <ul className="space-y-4">
             <li>
