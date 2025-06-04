@@ -1,23 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { supabase } from "../supabaseClient";
+import React from "react";
 import { Footer } from "../components/Footer";
 
 const HowItWorks = () => {
-  const [steps, setSteps] = useState([]);
-
-  // Fetch steps from Supabase
-  useEffect(() => {
-    const fetchSteps = async () => {
-      const { data, error } = await supabase.from("steps").select("*");
-      if (error) {
-        console.error("Error fetching steps:", error);
-      } else {
-        setSteps(data);
-      }
-    };
-
-    fetchSteps();
-  }, []);
+  const steps = [
+    { id: 1, description: "Sign up and create your account." },
+    { id: 2, description: "Choose your delivery or pickup service." },
+    { id: 3, description: "Get in touch with your delivery person." },
+    { id: 4, description: "Receive your package securely and on time." },
+  ];
 
   return (
     <section className="bg-gradient-to-b from-gray-100 to-white py-16">
@@ -38,9 +28,11 @@ const HowItWorks = () => {
             </div>
           ))}
         </div>
-      </div>
+      </div><br />
+	  <br />
+	  <br />
+      <Footer />
     </section>
-	
   );
 };
 

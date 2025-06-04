@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../supabaseClient";
 import ContactUs from "../components/ContactUs";
 
 const UserDashboard = () => {
@@ -7,26 +8,28 @@ const UserDashboard = () => {
   const [recentOrders, setRecentOrders] = useState([]);
   const [statusOverview, setStatusOverview] = useState([]);
 
-  // Simulated logged-in user
   const user = {
-    id: 1, // Unique identifier for the user
-    name: "Korir",
-    email: "b8N5o@example.com",
+    id: 1,
+    name: "there",
+    email: "you@examplemail.com",
   };
 
-  // Fetch recent orders and status overview from db.json
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const ordersResponse = await fetch("http://localhost:3001/orders");
-        const ordersData = await ordersResponse.json();
+        const { data: ordersData, error: ordersError } = await supabase
+          .from("orders")
+          .select("*")
+          .eq("userId", user.id);
 
-        // Filter orders to only include those belonging to the logged-in user
-        const userOrders = ordersData.filter((order) => order.userId === user.id);
-        setRecentOrders(userOrders);
+        if (ordersError) throw ordersError;
+        setRecentOrders(ordersData);
 
-        const statusResponse = await fetch("http://localhost:3001/statusOverview");
-        const statusData = await statusResponse.json();
+        const { data: statusData, error: statusError } = await supabase
+          .from("statusOverview")
+          .select("*");
+
+        if (statusError) throw statusError;
         setStatusOverview(statusData);
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
@@ -37,12 +40,11 @@ const UserDashboard = () => {
   }, [user.id]);
 
   const handleNewDeliveryClick = () => {
-    navigate("/request"); // Redirects to the OrderCTA page
+    navigate("/request");
   };
 
   return (
     <div className="min-h-screen bg-slate-50 font-['Work Sans','Noto Sans',sans-serif] px-4 py-6 pt-30">
-      {/* Header */}
       <header className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-[#0e141b]">Welcome to your dashboard</h1>
         <button
@@ -53,7 +55,6 @@ const UserDashboard = () => {
         </button>
       </header>
 
-      {/* Status Overview */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {statusOverview.map(({ label, count }) => (
           <div
@@ -66,16 +67,14 @@ const UserDashboard = () => {
         ))}
       </section>
 
-      {/* Recent Deliveries */}
       <section className="bg-white rounded-xl shadow-sm border border-[#e7edf3]">
         <div className="p-4 border-b border-[#e7edf3]">
           <h2 className="text-lg font-semibold text-[#0e141b]">Your Order History</h2>
         </div>
 
-<p className="bg-yellow-50 text-yellow-800 px-4 py-3 rounded-lg border border-yellow-200 text-sm font-medium mb-4">
-  👋 Hey there! Just a heads-up — the ability to view your previous and current orders right here in your dashboard is coming very soon. We're working on it just for you, so stay tuned!
-</p>
-
+        <p className="bg-yellow-50 text-yellow-800 px-4 py-3 rounded-lg border border-yellow-200 text-sm font-medium mb-4">
+          👋 Hey {user.name}! Just a heads-up — the ability to view your previous and current orders right here in your dashboard is coming very soon. We're working on it just for you, so stay tuned!
+        </p>
 
         <table className="w-full text-sm text-left">
           <thead className="bg-[#f9fafb]">
@@ -91,8 +90,8 @@ const UserDashboard = () => {
             {recentOrders.map((order) => (
               <tr key={order.id} className="border-t border-[#e7edf3]">
                 <td className="px-4 py-2 text-[#0e141b]">{order.id}</td>
-                <td className="px-4 py-2 text-[#4e7397]">{order.pickup}</td>
-                <td className="px-4 py-2 text-[#4e7397]">{order.delivery}</td>
+                <td className="px-4 py-2 text-[#4e7397]">{order.pickupLocation}</td>
+                <td className="px-4 py-2 text-[#4e7397]">{order.deliveryLocation}</td>
                 <td className="px-4 py-2 text-[#4e7397]">{order.status}</td>
                 <td className="px-4 py-2">
                   <button className="text-sm text-[#1980e6] font-medium">Track</button>
@@ -101,6 +100,7 @@ const UserDashboard = () => {
             ))}
           </tbody>
         </table>
+
         <ContactUs />
       </section>
     </div>
