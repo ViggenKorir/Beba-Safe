@@ -16,14 +16,16 @@ function AppDownload() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="" alt="Play Store" className="w-40 h-14 m-2" />
+            <img src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1749385451/pnpnbe52gvhx9upulidv.png"
+            alt="Play Store" className="w-40 h-14 m-2" />
           </a>
           <a
             href="https://apps.apple.com/us/app/beba-safe/id1234567890"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img src="" alt="App Store" className="w-40 h-14 m-2" />
+            <img src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1749385673/m0anl9zj9sb2h4mdrzcn.svg"
+            alt="App Store" className="w-40 h-14 m-2" />
           </a>
         </div>
       </div>
