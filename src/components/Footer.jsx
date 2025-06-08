@@ -54,24 +54,24 @@ export function Footer() {
           <ul className="space-y-2 text-sm text-gray-400">
             <li>
               <span className="font-semibold text-white">Phone:</span> <br />
-              <a href="tel:+254712856197" className="hover:text-white">
-                +254 712 856 197
+              <a href="tel:+254715519432" className="hover:text-white">
+                +254 715 519 432 - Contact Ryan
               </a>
               <br />
               or <br />
               <span className="font-semibold text-white"></span>{" "}
               <a href="tel:+254712856197" className="hover:text-white">
-                +254 712 856 197
+                +254 712 856 197 - Contact Wayne
               </a>
             </li>
             <li>
               <span className="font-semibold text-white">Email:</span>{" "}
               <a
-                href="mailto:support@bebasafe.com"
+                href="mailto:ryanleyian08@gmail.com"
                 className="hover:text-white"
               >
                 {/* support@bebasafe.com */}
-                viggen.inc@zohomail.com
+                ryanleyian08@gmail.com
               </a>
             </li>
             <li>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ShareAppButton from "./ShareAppButton";
 
 const ContactUs = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,7 @@ const ContactUs = () => {
       {/* Button to open the pop-up */}
       <button
         onClick={togglePopup}
-        className="fixed bottom-6 right-6 bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 z-999"
+        className="fixed bottom-6 right-6 bg-blue-600 text-white px-6 py-3 rounded-full outline-1 shadow-lg hover:bg-blue-700 transition-all duration-300 z-999"
       >
         Contact Us
       </button>
@@ -53,12 +54,14 @@ const ContactUs = () => {
 
               {/* Email Option */}
               <a
-                href="mailto:viggen.inc@zohomail.com"
+                href="mailto:ryanleyian08@gmail.com"
+                // support@bebasafe.com
                 className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-red-200 transition-all duration-300"
               >
                 <i className="fas fa-envelope mr-3"></i>
-                support@bebasafe.com - Email us
+                ryanleyian08@gmail.com - Email us
               </a>
+              <ShareAppButton />
             </div>
           </div>
         </div>

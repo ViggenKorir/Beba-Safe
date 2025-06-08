@@ -7,6 +7,7 @@ import {
 } from "@clerk/clerk-react";
 import { useState, useEffect } from "react";
 import DashboardButton from "./DashBoardButton";
+import ShareAppButton from "./ShareAppButton";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export function Navbar() {
@@ -119,14 +120,7 @@ export function Navbar() {
             </SignedOut>
 
             <SignedIn>
-              <DashboardButton />
-              <UserButton
-                appearance={{
-                  elements: {
-                    userButtonAvatar: "w-8 h-8 border-2 border-blue-600 rounded-full",
-                  },
-                }}
-              />
+              <DashboardButton className="" />
             </SignedIn>
           </div>
         </div>
@@ -141,6 +135,7 @@ export function Navbar() {
         <SignedIn>
               <DashboardButton />
               <UserButton
+              style={{ position: "absolute", right: "2rem", top: "1rem" }}
                 appearance={{
                   elements: {
                     userButtonAvatar: "w-10 h-10 border-2 border-white rounded-full",
@@ -161,74 +156,101 @@ export function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="fixed top-0 left-0 w-full h-full bg-blue-600 p-6 z-40">
-          <div className="flex justify-between items-center mb-6">
-            <a
-              href="/"
-              className="text-white text-xl font-bold flex items-center"
-            >
-              <img
-                src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1748977333/pmlhudzzwrruqcd0kokw.png"
-                alt="BebaSafe Logo"
-                className="rounded-full w-10 h-10 mr-2"
-              />
-              BebaSafe
-            </a>
-            <button
-              className="text-white text-2xl"
-              onClick={() => setIsMenuOpen(false)}
-              aria-label="Close Menu"
-            >
-              <i className="fas fa-times"></i>
-            </button>
-            
-          </div>
-          <ul className="space-y-4">
-            <li>
-              <a href="/" className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="/about" className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200">
-                About
-              </a>
-            </li>
-            <li>
-              <a href="/how-it-works" className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200">
-                How It Works
-              </a>
-            </li>
-            <li>
-              <a href="/contact" className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200">
-                Contact
-              </a>
-            </li>
-            <li>
-              <a href="/download" className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200">
-                Download App
-              </a>
-            </li>
-          </ul>
-          <div className="mt-6">
-            <SignedOut>
-              <SignInButton className="block w-full bg-white text-blue-600 px-4 py-2 rounded-lg font-bold mb-2" />
-              <SignUpButton className="block w-full bg-white text-blue-600 px-4 py-2 rounded-lg font-bold" />
-            </SignedOut>
-            <SignedIn>
-              <DashboardButton />
-              <UserButton
-                appearance={{
-                  elements: {
-                    userButtonAvatar: "w-10 h-10 border-2 border-white rounded-full",
-                  },
-                }}
-              />
-            </SignedIn>
-          </div>
-        </div>
-      )}
-    </nav>
+{isMenuOpen && (
+  <div className="fixed top-0 left-0 w-full h-full bg-blue-600 p-6 z-40">
+    <div className="flex justify-between items-center mb-6">
+      <SignedIn>
+        <UserButton
+          appearance={{
+            elements: {
+              userButtonAvatar: "w-15 h-15 border-2 border-white rounded-full",
+            },
+          }}
+        />
+      </SignedIn>
+      <a
+        href="/"
+        className="text-white text-xl font-bold flex items-center mb-20"
+      >
+        <img
+          src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1748977333/pmlhudzzwrruqcd0kokw.png"
+          alt="BebaSafe Logo"
+          className="rounded-full w-10 h-10 mr-2 "
+        />
+        BebaSafe
+      </a>
+      <button
+        className="text-white text-2xl"
+        onClick={() => setIsMenuOpen(false)}
+        aria-label="Close Menu"
+      >
+        <i className="fas fa-times"></i>
+      </button>
+    </div>
+    <ul className="space-y-4">
+      <li>
+        <a
+          href="/"
+          className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200"
+          onClick={() => setIsMenuOpen(false)} // Close menu on click
+        >
+          Home
+        </a>
+      </li>
+      <li>
+        <a
+          href="/about"
+          className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200"
+          onClick={() => setIsMenuOpen(false)} // Close menu on click
+        >
+          About
+        </a>
+      </li>
+      <li>
+        <a
+          href="/how-it-works"
+          className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200"
+          onClick={() => setIsMenuOpen(false)} // Close menu on click
+        >
+          How It Works
+        </a>
+      </li>
+      <li>
+        <a
+          href="/contact"
+          className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200"
+          onClick={() => setIsMenuOpen(false)} // Close menu on click
+        >
+          Contact
+        </a>
+      </li>
+      <li>
+        <a
+          href="/download"
+          className="block px-4 py-2 rounded-lg bg-white text-blue-600 hover:bg-gray-200 mb-10"
+          onClick={() => setIsMenuOpen(false)} // Close menu on click
+        >
+          Download App
+        </a>
+      </li>
+    </ul>
+    <div className="mt-6">
+      <SignedOut>
+        <SignInButton
+          className="block w-full bg-white text-blue-600 px-4 py-2 rounded-lg font-bold mb-2"
+          onClick={() => setIsMenuOpen(false)} // Close menu on click
+        />
+        <SignUpButton
+          className="block w-full bg-white text-blue-600 px-4 py-2 rounded-lg font-bold"
+          onClick={() => setIsMenuOpen(false)} // Close menu on click
+        />
+      </SignedOut>
+      <SignedIn>
+        <DashboardButton />
+      </SignedIn>
+      <ShareAppButton />
+    </div>
+  </div>
+)}    </nav>
   );
 }

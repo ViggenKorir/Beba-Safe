@@ -4,8 +4,8 @@ export function HeroSection() {
   return (
     <section className="bg-blue-100 py-20 px-4 sm:px-6 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
       {/* Text Content */}
-      <div className="text-center md:text-left space-y-6">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-blue-700 leading-tight tracking-tight">
+      <div className="text-center md:text-left space-y-8">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-blue-700 leading-tight tracking-tight mt-8">
           Fast, Reliable, and Secure Delivery from Nairobi CBD
         </h1>
         <p className="text-base sm:text-lg md:text-xl text-blue-900 max-w-md">

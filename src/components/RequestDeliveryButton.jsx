@@ -6,7 +6,7 @@ export const RequestDeliveryButton = () => {
   const [formData, setFormData] = useState({});
 
   const fields = [
-    { name: "pickupLocation", label: "Pickup Location *", type: "text", placeholder: "Enter pickup address" },
+    { name: "pickupLocation", label: "Pickup Location *", type: "text", placeholder: "Enter pickup address"},
     { name: "deliveryLocation", label: "Delivery Location *", type: "text", placeholder: "Enter delivery address" },
     { name: "contactPerson", label: "Contact Person *", type: "text", placeholder: "Enter name" },
     { name: "contactNo", label: "Contact No.*", type: "text", placeholder: "+254-700-000" },
@@ -119,13 +119,13 @@ export const RequestDeliveryButton = () => {
                 <button
                   type="button"
                   onClick={handleClosePopup}
-                  className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium"
+                  className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium mb-15"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700 text-sm"
+                  className="px-6 py-2 rounded-lg bg-blue-600 text-white font-bold hover:bg-blue-700 text-sm mb-15"
                 >
                   Proceed
                 </button>
