@@ -1,10 +1,12 @@
 // supabaseClient.js
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const supabaseKey = process.env.SUPABASE_ANON_KEY
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey) || createClient(supabaseUrl, supabaseKey);
 
 // This file initializes the Supabase client using environment variables for the URL and anon key.
 // It exports the client for use in other parts of the application, such as authentication and database operations.
@@ -15,3 +17,5 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 // The Supabase client is used throughout the application to perform operations like querying the database, managing user sessions, and handling real-time updates.
 // It is important to ensure that the environment variables are correctly set in the `.env` file or in the deployment environment for the application to function properly.
 // This file is typically imported in the main application file (e.g., `App.jsx`) or in specific pages/components that require database access or user authentication.
+
+      
