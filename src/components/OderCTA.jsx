@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { redirect } from "react-router-dom";
 
 export const OrderCTA = () => {
   const [activeTab, setActiveTab] = useState("delivery");
@@ -49,8 +48,7 @@ export const OrderCTA = () => {
       <button
         className="w-full h-12 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-md transition"
         onClick={() => {
-          alert("Proceeding to order page...");
-          setTimeout(() => redirect("/orders"), 100);
+          window.location.href = "/request"; // Redirect to order page
         }}
       >
         Request Delivery

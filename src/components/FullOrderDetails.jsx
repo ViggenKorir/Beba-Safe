@@ -64,7 +64,7 @@ const FullOrderDetails = ({ orderId, isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 backdrop-blur-sm bg-opacity-20 overflow-y-auto h-full w-full z-50">
-      <div className="relative top-30 mx-auto p-5 border w-96 shadow-lg rounded-xl bg-white">
+      <div className="relative top-50 mx-auto p-5 border w-96 shadow-lg rounded-xl bg-white">
         <div className="flex justify-between items-center pb-3">
           <h3 className="text-xl font-semibold text-gray-900">Order Details</h3>
           <button
@@ -180,7 +180,7 @@ const FullOrderDetails = ({ orderId, isOpen, onClose }) => {
             <div className="mt-6">
               <div className="font-semibold mb-2">Special Instructions:</div>
               <div className="bg-gray-50 p-3 rounded">
-                {order.special_instructions || "No special instructions"}
+                {order.specialInstructions || "No special instructions"}
               </div>
             </div>
           </div>
