@@ -115,10 +115,9 @@ export function Navbar() {
         <div className="hidden md:block">
           <div className="space-x-4">
             <SignedOut>
-              <SignInButton className="bg-white text-blue-600 px-4 py-2 rounded-lg font-bold" />
-              <SignUpButton className="bg-white text-blue-600 px-4 py-2 rounded-lg font-bold" />
+              <SignUpButton className="bg-white text-blue-600 px-4 py-2 mr-6 rounded-lg font-bold" />
             </SignedOut>
-
+<br />
             <SignedIn>
               <DashboardButton className="" />
             </SignedIn>
@@ -241,7 +240,7 @@ export function Navbar() {
           onClick={() => setIsMenuOpen(false)} // Close menu on click
         />
         <SignUpButton
-          className="block w-full bg-white text-blue-600 px-4 py-2 rounded-lg font-bold"
+          className="block w-full bg-white text-blue-600 px-4 py-2 rounded-lg font-bold mb-2"
           onClick={() => setIsMenuOpen(false)} // Close menu on click
         />
       </SignedOut>

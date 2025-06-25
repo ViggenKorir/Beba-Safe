@@ -78,17 +78,17 @@ export const RequestDeliveryButton = () => {
       {isPopupOpen && (
         <div className="fixed inset-0 backdrop-blur-sm rounded-lg bg-opacity-50 flex justify-center items-center px-4 z-50">
           <div
-            className="bg-white rounded-lg p-6 w-full max-w-4xl md:max-w-2xl sm:max-w-full sm:rounded-lg sm:h-full sm:overflow-y-auto"
+            className="bg-white rounded-2xl shadow-xl p-6 w-full max-w-2xl"
             style={{ maxHeight: "90vh", overflowY: "auto" }}
           >
-            <h2 className="text-2xl font-bold mb-6 text-[#0e141b] text-center sm:text-left">
+            <h2 className="text-2xl font-bold mb-4 text-blue-900">
               New Delivery Request
             </h2>
-            <form className="space-y-4" onSubmit={handleSubmit}>
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {fields.map(({ name, label, type, placeholder }) => (
                   <div key={name}>
-                    <label className="block text-sm font-medium text-[#0e141b] mb-1">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
                       {label}
                     </label>
                     {type === "textarea" ? (

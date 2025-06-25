@@ -20,7 +20,7 @@ export function HeroSection() {
         <img
           src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1748977333/pmlhudzzwrruqcd0kokw.png"
           alt="Delivery service illustration"
-          className="rounded-full shadow-xl mr-25 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 object-cover transition-all duration-300 hover:scale-105"
+          className="rounded-full shadow-xl md:mr-25 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 object-cover transition-all duration-300 hover:scale-105"
         />
       </div>
     </section>
