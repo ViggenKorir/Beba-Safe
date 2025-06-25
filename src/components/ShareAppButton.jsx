@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const ShareAppButton = () => {
-  // ...existing code for state and handleShare function...
+
 const [isSharing, setIsSharing] = useState(false);
 
   const handleShare = async () => {
@@ -9,7 +9,7 @@ const [isSharing, setIsSharing] = useState(false);
     
     const shareData = {
       title: 'Share Beba Safe App',
-      text: 'Try this BebaSafe now!',
+      text: 'Try BebaSafe now!',
       url: window.location.origin
     };
 
@@ -41,7 +41,7 @@ const [isSharing, setIsSharing] = useState(false);
       disabled={isSharing}
       className={`
         group relative flex w-full justify-center
-        px-4 py-2.5 text-sm font-semibold top-20
+        px-4 py-2.5 text-sm font-semibold top-1
         ${isSharing 
           ? 'bg-blue-400' 
           : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700'
@@ -49,7 +49,7 @@ const [isSharing, setIsSharing] = useState(false);
         text-white
         rounded-md
         transition-all duration-200 ease-in-out
-        focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600
+        focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600
         disabled:cursor-not-allowed disabled:opacity-70
       `}
       aria-label="Share Beba Safe App"

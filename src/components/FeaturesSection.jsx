@@ -15,6 +15,12 @@ export function FeaturesSection() {
       title: "Timely Service",
       description: "We ensure your deliveries are always on time.",
     },
+    {
+      id:3,
+      icon:"fas fa-house",
+      title:"Convenience",
+      description:"Make oders from the comfort of your devices anywhere you are"
+    }
   ];
 
   return (

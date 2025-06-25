@@ -25,6 +25,7 @@ import UserDashboard from "./pages/UserDashboard";
 import OrderForm from "./pages/OrderForm";
 import SignInRedirect from "./pages/SignInError";
 import HowItWorks from "./pages/HowItWorks";
+import ReferralPage from "./pages/ReferralPage.jsx";
 import AppDownload from "./pages/AppDownload";
 import NotFound from "./pages/NotFound";
 
@@ -45,7 +46,7 @@ function App() {
               <section className="relative py-16 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-7xl mx-auto">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                    <div className="space-y-8 md:pr-12">
+                    <div className="space-y-2 md:pr-12 mr-3.5">
                       <OrderCTA />
                     </div>
                     <div className="relative">
@@ -164,6 +165,15 @@ function App() {
           element={
             <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-purple-50 to-white py-12">
               <HowItWorks />
+            </div>
+          }
+        />
+
+        <Route
+          path="/refer"
+          element={
+            <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-purple-50 to-white py-12">
+              <ReferralPage />
             </div>
           }
         />

@@ -9,7 +9,7 @@ export const RequestDeliveryButton = () => {
     { name: "pickupLocation", label: "Pickup Location *", type: "text", placeholder: "Enter pickup address"},
     { name: "deliveryLocation", label: "Delivery Location *", type: "text", placeholder: "Enter delivery address" },
     { name: "contactPerson", label: "Contact Person *", type: "text", placeholder: "Enter name" },
-    { name: "contactNo", label: "Contact No.*", type: "text", placeholder: "+254-700-000" },
+    { name: "contactNo", label: "Contact No.*", type: "text", placeholder: "+254-700-000-000" },
     { name: "itemType", label: "Item Name *", type: "text", placeholder: "e.g. Laptop" },
     { name: "quantity", label: "Quantity", type: "number", placeholder: "" },
     { name: "weight", label: "Weight", type: "number", placeholder: "" },
@@ -76,9 +76,9 @@ export const RequestDeliveryButton = () => {
       </button>
 
       {isPopupOpen && (
-        <div className="fixed inset-0 backdrop-blur-sm bg-black bg-opacity-50 flex justify-center items-center px-4 z-50">
+        <div className="fixed inset-0 backdrop-blur-sm rounded-lg bg-opacity-50 flex justify-center items-center px-4 z-50">
           <div
-            className="bg-white rounded-xl p-6 w-full max-w-4xl md:max-w-2xl sm:max-w-full sm:rounded-none sm:h-full sm:overflow-y-auto"
+            className="bg-white rounded-lg p-6 w-full max-w-4xl md:max-w-2xl sm:max-w-full sm:rounded-lg sm:h-full sm:overflow-y-auto"
             style={{ maxHeight: "90vh", overflowY: "auto" }}
           >
             <h2 className="text-2xl font-bold mb-6 text-[#0e141b] text-center sm:text-left">

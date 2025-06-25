@@ -6,7 +6,7 @@ export const OrderCTA = () => {
   return (
     <div className="max-w-md w-full bg-white rounded-xl shadow-md p-6 space-y-6 mx-auto md:mx-0">
       {/* Tabs */}
-      <div className="flex justify-between border-b border-gray-200 pb-2 text-sm font-medium">
+      <div className="flex justify-between border-b border-gray-200 pb-2 text-sm font-medium mr-5.5">
         <button
           className={`pb-2 ${
             activeTab === "delivery"

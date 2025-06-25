@@ -67,11 +67,11 @@ export function Footer() {
             <li>
               <span className="font-semibold text-white">Email:</span>{" "}
               <a
-                href="mailto:ryanleyian08@gmail.com"
+                href="mailto:support.bebasafe@zohomail.com"
                 className="hover:text-white"
               >
                 {/* support@bebasafe.com */}
-                ryanleyian08@gmail.com
+                support.bebasafe@zohomail.com
               </a>
             </li>
             <li>

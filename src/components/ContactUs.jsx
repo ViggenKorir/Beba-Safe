@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ShareAppButton from "./ShareAppButton";
+import ReferralPopup from "./ReferralPopup";
 
 const ContactUs = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,23 +55,22 @@ const ContactUs = () => {
 
               {/* Email Option */}
               <a
-                href="mailto:ryanleyian08@gmail.com"
-                // support@bebasafe.com
+                href="mailto:support.bebasafe@zohomail.com"
                 className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-red-200 transition-all duration-300"
               >
                 <i className="fas fa-envelope mr-3"></i>
-                ryanleyian08@gmail.com - Email us
+                support.bebasafe@zohomail.com - Email us
               </a>
               <ShareAppButton />
-            </div>
+            </div><h1 className=" font-italic text-center mt-10">
+        Refer a friend & earn rewards!
+       <ReferralPopup />
+      </h1>
           </div>
         </div>
       )}
 
-      {/* <h1 className="text-3xl font-bold text-center mt-10">
-        Need assistance? <br />
-        Click on the Contact Us button below to reach out to us!
-      </h1> */}
+      
       {/* <br />
       <img src="https://res.cloudinary.com/dgu9ietkl/image/upload/v1747995627/vh8rdjtbiystq5pgo17g.png" 
       alt="arrow indicator"
