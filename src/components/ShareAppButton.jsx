@@ -41,7 +41,7 @@ const [isSharing, setIsSharing] = useState(false);
       disabled={isSharing}
       className={`
         group relative flex w-full justify-center
-        px-4 py-2.5 text-sm font-semibold top-1
+        px-4 py-2.5 text-sm font-semibold top-1 rounded-xl
         ${isSharing 
           ? 'bg-blue-400' 
           : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700'

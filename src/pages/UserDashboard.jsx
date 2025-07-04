@@ -73,7 +73,7 @@ const UserDashboard = () => {
         </div>
 
         <p className="bg-yellow-50 text-yellow-800 px-4 py-3 rounded-lg border border-yellow-200 text-sm font-medium mb-4">
-          👋 Hey {user.name}! Just a heads-up — the ability to view your previous and current orders right here in your dashboard is coming very soon. We're working on it just for you, so stay tuned!
+          👋 Hey {user.name}! Just a heads-up — you may view your previous orders and track the current ones right here in your dashboard soon. We're working on it just for you, so stay tuned!
         </p>
 
         <table className="w-full text-sm text-left">

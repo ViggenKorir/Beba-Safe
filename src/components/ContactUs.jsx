@@ -22,7 +22,7 @@ const ContactUs = () => {
       {/* Pop-up */}
       {isOpen && (
         <div className="fixed inset-0 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-11/12 max-w-md">
+          <div className="bg-white rounded-2xl shadow-lg p-6 w-11/12 max-w-md">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold text-blue-600">Contact Us</h2>
               <button
@@ -39,7 +39,7 @@ const ContactUs = () => {
               {/* Call Option */}
               <a
                 href="tel:+254715519432"
-                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-green-300 transition-all duration-300"
+                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-xl shadow hover:bg-green-300 transition-all duration-300"
               >
                 <i className="fas fa-phone-alt mr-3"></i>
                 +254 715 519 432 - Contact Ryan
@@ -47,7 +47,7 @@ const ContactUs = () => {
 
               <a
                 href="tel:+254712856197"
-                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-green-300 transition-all duration-300"
+                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-xl shadow hover:bg-green-300 transition-all duration-300"
               >
                 <i className="fas fa-phone-alt mr-3"></i>
                 +254 712 856 197 - Contact Wayne
@@ -56,7 +56,7 @@ const ContactUs = () => {
               {/* Email Option */}
               <a
                 href="mailto:support.bebasafe@zohomail.com"
-                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-lg shadow hover:bg-red-200 transition-all duration-300"
+                className="flex items-center bg-blue-100 text-blue-600 px-4 py-3 rounded-xl shadow hover:bg-red-200 transition-all duration-300"
               >
                 <i className="fas fa-envelope mr-3"></i>
                 support.bebasafe@zohomail.com - Email us

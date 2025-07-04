@@ -170,7 +170,7 @@ const OrderForm = ({ onClose }) => {
                 <button
                   type="button"
                   onClick={handleDelete}
-                  className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 text-sm font-medium"
+                  className="px-4 py-2 rounded-full bg-red-500 text-white hover:bg-red-600 text-sm font-medium"
                 >
                   Delete
                 </button>
@@ -179,13 +179,13 @@ const OrderForm = ({ onClose }) => {
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-sm font-medium"
+                  className="px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 text-sm font-medium"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700"
+                  className="px-6 py-2 rounded-full bg-blue-600 text-white font-bold hover:bg-blue-700"
                 >
                   {orderId ? "Update Order" : "Proceed"}
                 </button>

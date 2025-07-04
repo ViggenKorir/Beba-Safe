@@ -28,6 +28,7 @@ import HowItWorks from "./pages/HowItWorks";
 import ReferralPage from "./pages/ReferralPage.jsx";
 import AppDownload from "./pages/AppDownload";
 import NotFound from "./pages/NotFound";
+import PaymentForm from "./components/PaymentForm.jsx";
 
 const ProtectedRoute = ({ children }) => {
   return <SignedIn>{children}</SignedIn>;
@@ -174,6 +175,15 @@ function App() {
           element={
             <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-purple-50 to-white py-12">
               <ReferralPage />
+            </div>
+          }
+        />
+
+        <Route
+          path="/pay"
+          element={
+            <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-purple-50 to-white py-12">
+              <PaymentForm />
             </div>
           }
         />

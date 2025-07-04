@@ -119,7 +119,7 @@ export function Navbar() {
             </SignedOut>
 <br />
             <SignedIn>
-              <DashboardButton className="" />
+              <DashboardButton className="mr-6" />
             </SignedIn>
           </div>
         </div>
